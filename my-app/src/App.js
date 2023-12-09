@@ -1,10 +1,10 @@
-import Header from "./layout/header";
+import MainTest from "./layout/test";
 
 function App() {
     return (
-        <div>
-            <Header></Header>
-        </div>
+        <>
+            <MainTest></MainTest>
+        </>
     );
 }
 
