@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import useHttpGet from "../customHook/customHook";
-import { cocktails } from "../constants/drink";
+import { cocktail, beer, wine, highball } from "../constants/drink";
 import Modal from "./modal";
 
 const ContainerStyle = styled.div`
@@ -35,28 +35,36 @@ const ImgStyle = styled.img`
 `;
 
 const ImgBox = ({ category }) => {
-    const apiUrl = `http://172.30.1.85:8080/${category}`;
-    const { data, loading, error } = useHttpGet(apiUrl);
-    const mockup = cocktails;
+    // const apiUrl = `http://172.30.1.85:8080/${category}`;
+    // const { data, loading, error } = useHttpGet(apiUrl);
+    const categoryData = {
+        cocktail: cocktail,
+        highball: highball,
+        wine: wine,
+        beer: beer,
+    };
+
+    const selectedCategoryData = categoryData[category] || [];
 
     const [isModal, setIsModal] = useState(false);
     const [details, setDetails] = useState();
     const handleModal = (data) => {
         setIsModal(!isModal);
         setDetails(data);
+        console.log(data.Url);
     };
 
-    if (loading) {
-        return <Pstyle>Loading...</Pstyle>;
-    }
+    // if (loading) {
+    //     return <Pstyle>Loading...</Pstyle>;
+    // }
 
-    if (error) {
-        return <Pstyle>Error occurred: {error.message}</Pstyle>;
-    }
+    // if (error) {
+    //     return <Pstyle>Error occurred: {error.message}</Pstyle>;
+    // }
     return (
         <>
             <ContainerStyle>
-                {data.map((item, index) => {
+                {selectedCategoryData.map((item, index) => {
                     return (
                         <Category
                             key={item.name}
